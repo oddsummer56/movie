@@ -14,7 +14,7 @@ license = {text = "MIT"}
 [tool.pdm]
 distribution = false
 
-[project scripts]
+[project.scripts]
 mov-ping = 'mov.cli:ping'
 
 [project.urls]
