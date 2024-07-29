@@ -9,8 +9,18 @@ $ pip install git+http....git
 ```bash
 $ git clone <URL>
 $ cd <DIR>
+$ source .venv/bin/activate
+$ pdm install
+$ pytest
 
 $ #OPTION
 $ pdm venv create
-$ source .venv/bin/activate
+```
+
+### setting env
+```
+cat ~/.zshrc | tail -n 3
+
+# MY_ENV
+export MOVIE_API_KEY="<KEY>"
 ```
