@@ -2,7 +2,10 @@
 ### install
 ```bash
 # main
-$ pip install git+http....git
+$ pip install git+https://github.com/oddsummer56/movie.git
+
+#branch
+$ pip install git+https://github.com/oddsummer56/movie.git@0.2/api
 ```
 
 ### start dev
