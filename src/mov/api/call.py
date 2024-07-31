@@ -5,7 +5,19 @@ import pandas as pd
 def echo(yaho):
     return yaho
 
-def save2df(load_dt='20120101'):
+def apply_type2df(load_dt='20120101', path="~/tmp/test_parquet"):
+    df=pd.read_parquet(f'{path}/load_dt={load_dt}')
+    df['rnum']=pd.to_numeric(df['rnum'])
+    df['rank']=pd.to_numeric(df['rank'])
+    
+    num_cols = ['rnum', 'rank', 'rankInten', 'salesAmt', 'audiCnt', 'audiAcc', 'scrnCnt', 'showCnt', 'salesShare', 'salesInten', 'salesChange', 'audiInten', 'audiChange']
+
+    for col_name in num_cols:
+        df[col_name] = pd.to_numeric(df[col_name])
+    return df
+
+
+def save2df(load_dt='20120101', url_param={}):
     df=list2df(load_dt)
     # df에 load_dt 칼럼 추가 (조회 일자 YYYYMMDD 형식)
     # 아래 파일 저장시 load_dt 기준으로 파티셔닝
@@ -38,9 +50,12 @@ def req(load_dt="20120101"):
     return code, data
 
 
-def gen_url(dt="20120101"):
+def gen_url(dt="20120101", req_val = {"multiMovieYn": "N"}):
     base_url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
     key = get_key()
     url = f"{base_url}?key={key}&targetDt={dt}"
-
+    
+    for k, v in req_val.items():
+        url = url + f"&{k}={v}"
+    
     return url
