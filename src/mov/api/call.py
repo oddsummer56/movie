@@ -7,13 +7,10 @@ def echo(yaho):
 
 def apply_type2df(load_dt='20120101', path="~/tmp/test_parquet"):
     df=pd.read_parquet(f'{path}/load_dt={load_dt}')
-    df['rnum']=pd.to_numeric(df['rnum'])
-    df['rank']=pd.to_numeric(df['rank'])
     
     num_cols = ['rnum', 'rank', 'rankInten', 'salesAmt', 'audiCnt', 'audiAcc', 'scrnCnt', 'showCnt', 'salesShare', 'salesInten', 'salesChange', 'audiInten', 'audiChange']
 
-    for col_name in num_cols:
-        df[col_name] = pd.to_numeric(df[col_name])
+    df[num_cols] = df[num_cols].apply(pd.to_numeric)
     return df
 
 
@@ -46,7 +43,6 @@ def req(load_dt="20120101", url_param={}):
     r = requests.get(url)
     code = r.status_code
     data = r.json()
-    
     return code, data
 
 
